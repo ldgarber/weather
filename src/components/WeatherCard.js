@@ -8,6 +8,7 @@ class WeatherCard extends React.Component {
       <div className="weather-card">
         <img className="weather-icon" src={icon_url} alt="weather"/>
         <h3>{this.props.city}, {this.props.country}</h3>
+        { this.props.location_description && <p>{this.props.location_description}</p> } 
         <p>{this.props.description}</p>
         <p>{this.props.temp}˚F</p>
       </div>

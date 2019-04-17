@@ -6,11 +6,14 @@ import Home from "./components/Home";
 import FiveDay from "./components/FiveDay"; 
 import WeatherCard from "./components/WeatherCard"; 
 import "./App.css"; 
+import "./geosuggest.css"; 
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;  
 
 class App extends Component {
   state = {
+    location_description: "", 
+    location: undefined, 
     temperature: undefined,
     city: undefined,
     country: undefined,
@@ -26,6 +29,17 @@ class App extends Component {
     } 
   } 
 
+  onSuggestSelect = (suggest) => {
+    if (suggest && suggest.location !== null) {
+      let location = suggest.location; 
+      this.setState({ 
+        location: location, 
+        location_description: suggest.description
+      }); 
+      this.getWeatherFromCoords(this.state.location.lat, this.state.location.lng); 
+    } 
+  }
+
   setForecastFromAPIResponse = (response) => {
     //store 5-day forecast data in state somehow
     this.setState({
@@ -38,6 +52,7 @@ class App extends Component {
     const response = await api_call.json();
     console.log(response);
 
+    this.setState({ location_description: null }); 
     this.setWeatherStateFromAPIResponse(response); 
   } 
 
@@ -50,7 +65,7 @@ class App extends Component {
       description: response.weather[0].description,
       wind: response.wind.speed, 
       icon: response.weather[0].icon, 
-      error: ""
+      error: "", 
     });  
   } 
 
@@ -90,7 +105,9 @@ class App extends Component {
               </ul>
               <div>
                 <h4>Enter your location</h4>
-                <Geosuggest />
+                <Geosuggest 
+                  onSuggestSelect={this.onSuggestSelect} 
+                />
               </div>
             </div>
           </header>
@@ -99,6 +116,7 @@ class App extends Component {
           <WeatherCard 
             temp={state.temperature} 
             icon={state.icon} 
+            location_description={state.location_description}
             description={state.description} 
             city={state.city}
             country={state.country}
