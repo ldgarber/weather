@@ -91,23 +91,22 @@ class App extends Component {
   render() {
     let state = this.state; 
     return (
-      <Router>
         <div>
           <header>
             <div>
-              <button onClick={this.getWeather}>Get Weather In London</button>   
-              { this.props.coords? 
-                <button onClick={() => this.getWeatherFromCoords(this.props.coords.latitude, this.props.coords.longitude)}>Use My Location</button> : null
-              } 
-              <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><Link to="/five-day">Five Day Forecast</Link></li>
-              </ul>
-              <div>
-                <h4>Enter your location</h4>
-                <Geosuggest 
-                  onSuggestSelect={this.onSuggestSelect} 
-                />
+              <div className="centered">
+                <h1>Current Weather</h1>
+
+                {/* <button onClick={this.getWeather}>Get Weather In London</button> */} 
+                <div>
+                  <h4>Enter your location</h4>
+                  <Geosuggest 
+                    onSuggestSelect={this.onSuggestSelect} 
+                  />
+                </div>
+                { this.props.coords? 
+                  <button onClick={() => this.getWeatherFromCoords(this.props.coords.latitude, this.props.coords.longitude)}>Use My Location</button> : null
+                } 
               </div>
             </div>
           </header>
@@ -120,14 +119,9 @@ class App extends Component {
             description={state.description} 
             city={state.city}
             country={state.country}
-          />
-          : <p>No results found</p>
+          /> : null 
         } 
         </div>
-
-        <Route exact path="/" component={Home} />
-        <Route path="/five-day" component={FiveDay} />
-      </Router>
     )
   }
 } 

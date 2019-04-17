@@ -7,7 +7,7 @@
   font-size: 1rem;
   position: relative;
   width: 50%;
-  margin: 1em;
+  margin: 1em auto;
   text-align: left;
 }
 .geosuggest__input {
