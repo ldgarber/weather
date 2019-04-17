@@ -56,12 +56,18 @@ class App extends Component {
   render() {
     let state = this.state; 
     return <div>
-             <button onClick={this.getWeather}>Get Weather</button>   
+             <button onClick={this.getWeather}>Get Weather In London</button>   
       { this.props.coords? 
-        <button onClick={() => this.getWeatherFromCoords(this.props.coords.latitude, this.props.coords.longitude)}>Get Weather At Your Location</button> : null
+        <button onClick={() => this.getWeatherFromCoords(this.props.coords.latitude, this.props.coords.longitude)}>Use My Location</button> : null
       } 
       { state && state.icon && 
-         <WeatherCard temp={state.temperature} icon={state.icon} />
+        <WeatherCard 
+          temp={state.temperature} 
+          icon={state.icon} 
+          description={state.description} 
+          city={state.city}
+          country={state.country}
+        />
       } 
         </div>
   }
