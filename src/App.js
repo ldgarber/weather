@@ -16,6 +16,12 @@ class App extends Component {
     error: undefined
   }
 
+  componentWillReceiveProps({coords}) {
+    if (coords) {
+      this.getWeatherFromCoords(coords.latitude, coords.longitude); 
+    } 
+  } 
+
   getWeather = async () => {
     const api_call = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=london,uk&units=imperial&appid=${API_KEY}`); 
 
