@@ -3,7 +3,7 @@ import React from "react";
 
 class WeatherCard extends React.Component {  
   render() {
-    let icon_url = "http://openweathermap.org/img/w/" + this.props.icon + ".png"; 
+    let icon_url = "https://openweathermap.org/img/w/" + this.props.icon + ".png"; 
     return(
       <div className="weather-card">
         <img className="weather-icon" src={icon_url} alt="weather"/>
