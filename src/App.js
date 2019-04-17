@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom"; 
 import {geolocated} from 'react-geolocated'; 
+import Home from "./components/Home"; 
+import FiveDay from "./components/FiveDay"; 
 import WeatherCard from "./components/WeatherCard"; 
 import "./App.css"; 
 
@@ -55,23 +58,34 @@ class App extends Component {
 
   render() {
     let state = this.state; 
-    return <div>
-             <button onClick={this.getWeather}>Get Weather In London</button>   
-      { this.props.coords? 
-        <button onClick={() => this.getWeatherFromCoords(this.props.coords.latitude, this.props.coords.longitude)}>Use My Location</button> : null
-      } 
-      { state && state.icon && 
-        <WeatherCard 
-          temp={state.temperature} 
-          icon={state.icon} 
-          description={state.description} 
-          city={state.city}
-          country={state.country}
-        />
-      } 
+    return (
+      <Router>
+        <div>
+          <header>
+            <button onClick={this.getWeather}>Get Weather In London</button>   
+            { this.props.coords? 
+              <button onClick={() => this.getWeatherFromCoords(this.props.coords.latitude, this.props.coords.longitude)}>Use My Location</button> : null
+            } 
+          </header>
+
+        { (state && state.icon) ? 
+          <WeatherCard 
+            temp={state.temperature} 
+            icon={state.icon} 
+            description={state.description} 
+            city={state.city}
+            country={state.country}
+          />
+          : <p>No results found</p>
+        } 
         </div>
+
+        <Route exact path="/" component={Home} />
+        <Route path="/5-day" component={FiveDay} />
+      </Router>
+    )
   }
-}
+} 
 
 export default geolocated({
   positionOptions: {
