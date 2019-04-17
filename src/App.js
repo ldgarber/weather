@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom"; 
 import {geolocated} from 'react-geolocated'; 
+import Geosuggest from 'react-geosuggest'; 
 import Home from "./components/Home"; 
 import FiveDay from "./components/FiveDay"; 
 import WeatherCard from "./components/WeatherCard"; 
@@ -87,6 +88,10 @@ class App extends Component {
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/five-day">Five Day Forecast</Link></li>
               </ul>
+              <div>
+                <h4>Enter your location</h4>
+                <Geosuggest />
+              </div>
             </div>
           </header>
 
